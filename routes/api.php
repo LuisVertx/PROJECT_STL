@@ -12,3 +12,13 @@ Route::post(
     '/slots/{slot}/hold',
     [HoldController::class, 'store']
 );
+
+Route::post(
+    '/holds/{hold}/confirm',
+    [HoldController::class, 'confirm']
+);
+
+Route::delete(
+    '/holds/{hold}',
+    [HoldController::class, 'destroy']
+);
