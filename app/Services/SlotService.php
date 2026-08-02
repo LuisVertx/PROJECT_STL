@@ -21,11 +21,13 @@ class SlotService
             'slots.availability',
             now()->addSeconds(10),
             function () {
-                return Slot::query()->select([
+                return Cache::lock('slots.availability.lock', 5)->block(2, function () {
+                    return Slot::query()->select([
                 'id as slot_id',
                 'capacity',
                 'remaining',
             ])->get();
+                });
             }
          );
             
